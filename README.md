@@ -62,3 +62,81 @@ sudo apt-get upgrade
 ![image](https://user-images.githubusercontent.com/71396519/172006440-5f7fd851-14c9-4f8a-889a-269e96714388.png)
 
 setelah upgrade selesai, lakukan sebuah server reboot. Setup instance EC2 selesai
+
+## B. Menginstal Mininet dan RYU
+
+1. Pastikan kita sudah terkoneksi dengan server melalui SSH
+
+![image](https://user-images.githubusercontent.com/71396519/172016124-d7ac9b69-6abb-4c67-a912-a00851af159c.png)
+
+2. Unduh file repositori mininet dari `https://mininet.org/download` dengan menggunakan command berikut,
+
+```
+git clone https://github.com/mininet/mininet
+```
+
+![image](https://user-images.githubusercontent.com/71396519/172016608-3a58754e-4d48-433b-afa3-80e2bad6c1f0.png)
+
+kemudian install dengan menggunakan command berikut,
+```
+mininet/util/install.sh -nfv
+```
+
+![image](https://user-images.githubusercontent.com/71396519/172016706-ac46c5b7-117c-4586-92f2-f67b1346b4e4.png)
+
+3. Unduh file repositori RYU dan install
+
+```
+git clone https://github.com/osrg/ryu.git
+cd ryu; pip install .
+cd
+```
+
+![image](https://user-images.githubusercontent.com/71396519/172016749-57170cd1-3b62-44a7-abee-696edc48f633.png)
+
+![image](https://user-images.githubusercontent.com/71396519/172016768-6d05acb5-7679-489e-99aa-8dfb14f39cc1.png)
+
+4. Unduh file repositori Flowmanager
+
+```
+git clone https://github.com/martimy/flowmanager
+cd
+```
+
+![image](https://user-images.githubusercontent.com/71396519/172016852-ca089feb-8d9a-4204-8941-ee3ac072dd71.png)
+
+5. Setelah melakukan instalasi MiniNet dan RYU, lakukan sebuah reboot server menggunakan command `sudo reboot`
+
+6. Setelah melakukan reboot, maka kita bisa mulai tes satu-per-satu aplikasi yang telah kita instal, dimulai dari MiniNet. Untuk membuka MiniNet, kita menggunakan command `sudo mn` pada SSH.
+
+![image](https://user-images.githubusercontent.com/71396519/172017407-463276f1-9c32-441d-9108-9078c3856843.png)
+
+MiniNet akan secara default membuat sebuah jaringan yang terdiri dari 2 host, 1 switch, dan 1 OpenFlow Reference Controller.
+
+7. Untuk menampilkan apa saja yang bisa kita lakukan dengan mininet, kita bisa menggunakan perintah `help`
+
+![image](https://user-images.githubusercontent.com/71396519/172017497-6b535f86-270e-4972-b403-a4244644f79a.png)
+
+8. untuk menampilkan node yang ada, kita bisa menggunakan perintah `node`
+
+![image](https://user-images.githubusercontent.com/71396519/172017579-e6e359c2-5a55-4b29-b807-d893fbd0212a.png)
+
+9. untuk menampilkan link antar node, kita bisa menggunakan perintah `net`
+
+![image](https://user-images.githubusercontent.com/71396519/172017591-6af117cd-f56f-47af-afa7-3fb91a64e47a.png)
+
+10. untuk menampilkan informasi dari semua node, kita bisa menggunakan perintah `dump`
+
+![image](https://user-images.githubusercontent.com/71396519/172017604-71493cc3-080f-4e0d-8f73-9dd44e7127be.png)
+
+11. Kemudian, kita akan mengetes konektivitas antar node pada jaringan default tersebut dengan menggunakan perintah `pingall` dan `h1 ping -c 2 h2`
+
+![image](https://user-images.githubusercontent.com/71396519/172017640-85c78467-449d-49be-88be-45a7982557eb.png)
+
+![image](https://user-images.githubusercontent.com/71396519/172017650-32464e28-c9a7-474c-a102-468f6750ebfd.png)
+
+## C. Membuat Custom Topology
+
+## D. Membuat aplikasi Ryu Load Balancer
+
+## E. Membuat aplikasi Ryu Shortest Path Routing
