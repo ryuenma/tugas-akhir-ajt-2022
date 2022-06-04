@@ -53,8 +53,10 @@ Berikut merupakan dokumentasi Tugas Akhir AJT
 
 8. Lakukan syntax berikut untuk memastikan kita sedang menggunakan OS image terbaru dan _up-to-date_
 
-> sudo apt-get update
-> sudo apt-get upgrade
+```
+sudo apt-get update
+sudo apt-get upgrade
+```
 
 ![image](https://user-images.githubusercontent.com/71396519/172006208-e9dde5da-8ee4-4f87-a3c0-1c0a77bc07d4.png)
 ![image](https://user-images.githubusercontent.com/71396519/172006440-5f7fd851-14c9-4f8a-889a-269e96714388.png)
