@@ -243,4 +243,33 @@ topos = { 'mytopo': ( lambda: MyTopo() ) }
 
 ## D. Membuat aplikasi Ryu Load Balancer
 
+1. Pertama, git clone dahulu repository learn_sdn dengan menggunakan command `git clone https://github.com/abazh/learn_sdn.git`
+
+![image](https://user-images.githubusercontent.com/71396519/172614963-31842f9d-232a-4523-b54e-57c45caa7e68.png)
+
+2. Copy file topo_lb.py ke direktori home anda
+
+![image](https://user-images.githubusercontent.com/71396519/172615645-e7820763-26ec-4a56-950d-1faf450ac710.png)
+
+3. Jalankan mininet dengan command `sudo python3 topo_lb.py`
+
+![image](https://user-images.githubusercontent.com/71396519/172616259-65c7b525-a25f-4fde-8963-3c7c0f8c0977.png)
+
+4. Buka sebuah SSH session di window lain, kemudian jalankan command `ryu-manager rr_lb.py`
+
+![image](https://user-images.githubusercontent.com/71396519/172618288-8d63050c-8f23-46b5-8174-c8bcc3f751a8.png)
+
+NOTE: Ada sebuah bug dalam Eventlet pada Python3.10 sehingga praktikum tidak bisa dilanjut. See [#687](https://github.com/eventlet/eventlet/issues/687)
+
 ## E. Membuat aplikasi Ryu Shortest Path Routing
+
+1. Jalankan command `sudo python3 topo-spf_lab.py`
+
+![image](https://user-images.githubusercontent.com/71396519/172619709-aba545af-0184-4974-9035-878ef4ec07c7.png)
+
+2. Buka sebuah SSH session di window lain, kemudian jalankan command `ryu-manager dijkstra_Ryu_controller.py`
+
+![image](https://user-images.githubusercontent.com/71396519/172619975-9958326d-02bb-4d41-a817-b28e12449a3b.png)
+
+
+NOTE: Ada sebuah bug dalam Eventlet pada Python3.10 sehingga praktikum tidak bisa dilanjut. See [#687](https://github.com/eventlet/eventlet/issues/687)
