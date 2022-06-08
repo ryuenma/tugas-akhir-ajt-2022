@@ -137,6 +137,110 @@ MiniNet akan secara default membuat sebuah jaringan yang terdiri dari 2 host, 1 
 
 ## C. Membuat Custom Topology
 
+1. Buat file script bernama tugas22sw2h.py menggunakan command `vim tugas22sw2.py` pada SSH
+
+![image](https://user-images.githubusercontent.com/71396519/172587479-9f4c4ad8-1fcc-4191-9a81-4172b13ec671.png)
+
+2. isi dengan script berikut,
+
+```#!/usr/bin/env python
+
+" Custom Topology "
+
+from mininet.topo import Topo
+from mininet.log import setLogLevel, info
+
+class MyTopo( Topo ):
+
+    def addSwitch(self, name, **opts ):
+        kwargs = {'protocols' : 'OpenFlow13'}
+        kwargs.update( opts )
+        return super(MyTopo, self).addSwitch( name, **kwargs )
+        
+    def __init__(self):
+        # Inisialisasi Topology
+        Topo.__init__( self )
+        
+        # Tambahkan node, switch, dan host
+        info('*** Add switches\n')
+        s1 = self.addSwitch('s1')
+        s2 = self.addSwitch('s2')
+        # ....
+        info('*** Add hosts\n')
+        h1 = self.addHost('h1', ip='10.1.0.1/24')
+        h2 = self.addHost('h2', ip='10.1.0.2/24')
+        # ....
+        self.addLink(s1, h1, port1=1, port2=1)
+        self.addLink(s1, s2, port1=2, port2=1)
+        self.addLink(s2, h2, port1=2, port2=1)
+        # ....
+    topos = {'mytopo': ( lambda: MyTopo() ) }
+ ```
+    
+![image](https://user-images.githubusercontent.com/71396519/172599818-a9ffbf3a-6636-4a66-bad3-61decae32457.png)
+
+3. Ketika sudah selesai membuat script, maka kita akan menjalankan command berikut `sudo mn --controller=none --custom tugas22sw2h.py --topo mytopo --mac --arp`
+
+![image](https://user-images.githubusercontent.com/71396519/172602189-fe5228b9-f64c-48e2-830e-7443849f968a.png)
+
+4. Setelah MiniNet berjalan, jalankan command berikut,
+
+```sh ovs-ofctl add-flow s1 -O OpenFlow13 "in_port=1,action=output:2"
+sh ovs-ofctl add-flow s1 -O OpenFlow13 "in_port=2,action=output:1"
+sh ovs-ofctl add-flow s2 -O OpenFlow13 "in_port=1,action=output:2"
+sh ovs-ofctl add-flow s2 -O OpenFlow13 "in_port=2,action=output:1"
+```
+
+![image](https://user-images.githubusercontent.com/71396519/172604317-f2dea9fb-36b1-4b62-9c44-2558188ade88.png)
+
+5. Lakukan uji koneksi dengan menggunakan command `h1 ping -c2 h2`
+
+![image](https://user-images.githubusercontent.com/71396519/172604492-b41a6f11-1608-4ee3-beae-f65270a97b93.png)
+
+6. Topology 2 Switch 2 Host selesai. Maka kita kaan berlanjut ke topologi selanjutnya, yakni 3 switch dengan 6 host menggunakan STP, berikut scriptnya;
+
+```from mininet.topo import Topo
+
+class MyTopo( Topo ):
+    "Simple topology example."
+
+    def build( self ):
+        "Create custom topo."
+
+        # Add hosts and switches
+        H1 = self.addHost( 'h1', ip = '10.1.0.1/24' )
+        H2 = self.addHost( 'h2', ip = '10.1.0.2/24' )
+        H3 = self.addHost( 'h3', ip = '10.1.0.3/24' )
+        H4 = self.addHost( 'h4', ip = '10.1.0.4/24' )
+        H5 = self.addHost( 'h5', ip = '10.1.0.5/24' )
+        H6 = self.addHost( 'h6', ip = '10.1.0.6/24' )
+        S1 = self.addSwitch( 's1' )
+        S2 = self.addSwitch( 's2' )
+        S3 = self.addSwitch( 's3' )
+
+        # Add links
+        self.addLink(S1, S2, port1=4, port2=2)
+        self.addLink(S1, S3, port1=1, port2=3) 
+        self.addLink(S2, S3, port1=1, port2=4)
+        self.addLink(H1, S1, port1=1, port2=2)
+        self.addLink(H2, S1, port1=1, port2=3)
+        self.addLink(H3, S2, port1=1, port2=3)
+        self.addLink(H4, S2, port1=1, port2=4)
+        self.addLink(H5, S3, port1=1, port2=2)
+
+topos = { 'mytopo': ( lambda: MyTopo() ) }
+```
+
+![image](https://user-images.githubusercontent.com/71396519/172606779-db81d839-59d3-40e1-a5cd-8f05428f9ff5.png)
+
+7. Save scriptnya, kemudian jalankan command `sudo mn --controller=none --custom tugas23sw6h.py --topo mytopo --mac --arp`
+
+![image](https://user-images.githubusercontent.com/71396519/172608285-5b5f3f30-6472-4fd0-8106-076aa75f232a.png)
+
+8. lakukan test pingall
+
+![image](https://user-images.githubusercontent.com/71396519/172613217-dc4c9796-2df8-44bb-a01d-238c3b0fd585.png)
+
 ## D. Membuat aplikasi Ryu Load Balancer
 
 ## E. Membuat aplikasi Ryu Shortest Path Routing
